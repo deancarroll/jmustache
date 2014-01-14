@@ -3,6 +3,8 @@
 
 package java.io;
 
+import java.io.*;
+
 /**
  * A basic implementation of {@code StringReader} for use in GWT.
  */

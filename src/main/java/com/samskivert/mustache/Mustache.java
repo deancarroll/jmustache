@@ -4,6 +4,8 @@
 
 package com.samskivert.mustache;
 
+import com.samskivert.mustache.*;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -112,7 +114,7 @@ public class Mustache
          * <ul>
          * <li>In the case of a Java object being used as a context, if no field or method can be
          * found for a variable, an exception will be raised.</li>
-         * <li>In the case of a {@link Map} being used as a context, if the map does not contain
+         * <li>In the case of a {@link java.util.Map} being used as a context, if the map does not contain
          * a mapping for a variable, an exception will be raised. If the map contains a mapping
          * which maps to {@code null}, then {@code nullValue} is used.</li>
          * </ul> */
@@ -136,14 +138,14 @@ public class Mustache
                                 this.escaper, this.loader, this.collector, this.delims);
         }
 
-        /** Configures the {@link Formatter} used to turn objects into strings. */
+        /** Configures the {@link Mustache.Formatter} used to turn objects into strings. */
         public Compiler withFormatter (Formatter formatter) {
             return new Compiler(this.standardsMode, this.nullValue, this.missingIsNull,
                                 this.emptyStringIsFalse, this.zeroIsFalse, formatter,
                                 this.escaper, this.loader, this.collector, this.delims);
         }
 
-        /** Configures the {@link Escaper} used to escape substituted text. */
+        /** Configures the {@link Mustache.Escaper} used to escape substituted text. */
         public Compiler withEscaper (Escaper escaper) {
             return new Compiler(this.standardsMode, this.nullValue, this.missingIsNull,
                                 this.emptyStringIsFalse, this.zeroIsFalse, this.formatter,
@@ -209,7 +211,7 @@ public class Mustache
     public interface Formatter
     {
         /** Converts {@code value} to a string for inclusion in a template. */
-        String format (Object value);
+        String format(Object value);
     }
 
     /** Handles lambdas. */
@@ -221,21 +223,21 @@ public class Mustache
          * @param frag the fragment of the template that was passed to the lambda.
          * @param out the writer to which the lambda should write its output.
          */
-        void execute (Template.Fragment frag, Writer out) throws IOException;
+        void execute(Template.Fragment frag, Writer out) throws IOException;
     }
 
     /** Reads variables from context objects. */
     public interface VariableFetcher
     {
         /** Reads the so-named variable from the supplied context object. */
-        Object get (Object ctx, String name) throws Exception;
+        Object get(Object ctx, String name) throws Exception;
     }
 
     /** Handles escaping characters in substituted text. */
     public interface Escaper
     {
         /** Returns {@code raw} with the appropriate characters replaced with escape sequences. */
-        String escape (String raw);
+        String escape(String raw);
     }
 
     /** Handles loading partial templates. */
@@ -243,7 +245,7 @@ public class Mustache
     {
         /** Returns a reader for the template with the supplied name.
          * @throws Exception if the template could not be loaded for any reason. */
-        Reader getTemplate (String name) throws Exception;
+        Reader getTemplate(String name) throws Exception;
     }
 
     /** Handles interpreting objects as collections. */
@@ -251,17 +253,17 @@ public class Mustache
     {
         /** Returns an iterator that can iterate over the supplied value, or null if the value is
          * not a collection. */
-        Iterator<?> toIterator (final Object value);
+        Iterator<?> toIterator(final Object value);
 
         /** Creates a fetcher for a so-named variable in the supplied context object, which will
          * never be null. The fetcher will be cached and reused for future contexts for which
          * {@code octx.getClass().equals(nctx.getClass()}. */
-        VariableFetcher createFetcher (Object ctx, String name);
+        VariableFetcher createFetcher(Object ctx, String name);
 
-        /** Creates a map to be used to cache {@link VariableFetcher} instances. The GWT-compatible
+        /** Creates a map to be used to cache {@link Mustache.VariableFetcher} instances. The GWT-compatible
          * collector returns a HashMap here, but the reflection based fetcher (which only works on
          * the JVM and Android, returns a concurrent hashmap. */
-        <K,V> Map<K,V> createFetcherCache ();
+        <K,V> Map<K,V> createFetcherCache();
     }
 
     /**

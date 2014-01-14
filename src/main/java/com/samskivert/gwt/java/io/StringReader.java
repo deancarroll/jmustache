@@ -2,6 +2,8 @@
 // $Id$
 
 package java.io;
+import java.io.*;
+import java.io.Reader;
 
 /**
  * A basic implementation of {@code StringReader} for use in GWT.

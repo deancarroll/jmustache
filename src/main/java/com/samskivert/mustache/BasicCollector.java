@@ -4,7 +4,6 @@
 
 package com.samskivert.mustache;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -41,8 +40,8 @@ public abstract class BasicCollector implements Mustache.Collector
         return null;
     }
 
-    /** This should return a thread-safe map, either {@link Collections#synchronizedMap} called on
-     * a standard {@link Map} implementation or something like {@code ConcurrentHashMap}. */
+    /** This should return a thread-safe map, either {@link java.util.Collections#synchronizedMap} called on
+     * a standard {@link java.util.Map} implementation or something like {@code ConcurrentHashMap}. */
     public abstract <K,V> Map<K,V> createFetcherCache ();
 
     protected static final Mustache.VariableFetcher MAP_FETCHER = new Mustache.VariableFetcher() {

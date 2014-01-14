@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -19,7 +18,7 @@ import java.util.Map;
  * <ul>
  * <li>If the variable has the special name {@code this} the context object itself will be
  * returned. This is useful when iterating over lists.
- * <li>If the object is a {@link Map}, {@link Map#get} will be called with the string {@code foo}
+ * <li>If the object is a {@link java.util.Map}, {@link java.util.Map#get} will be called with the string {@code foo}
  * as the key.
  * <li>A method named {@code foo} in the supplied object (with non-void return value).
  * <li>A method named {@code getFoo} in the supplied object (with non-void return value).
@@ -27,7 +26,7 @@ import java.util.Map;
  * </ul>
  * <p> The field type, method return type, or map value type should correspond to the desired
  * behavior if the resolved name corresponds to a section. {@link Boolean} is used for showing or
- * hiding sections without binding a sub-context. Arrays, {@link Iterator} and {@link Iterable}
+ * hiding sections without binding a sub-context. Arrays, {@link java.util.Iterator} and {@link Iterable}
  * implementations are used for sections that repeat, with the context bound to the elements of the
  * array, iterator or iterable. Lambdas are current unsupported, though they would be easy enough
  * to add if desire exists. See the <a href="http://mustache.github.com/mustache.5.html">Mustache
@@ -294,7 +293,7 @@ public class Template
         }
     }
 
-    /** A sentinel object that can be returned by a {@link Mustache.Collector} to indicate that a
+    /** A sentinel object that can be returned by a {@link samskivert.mustache.Mustache.Collector} to indicate that a
      * variable does not exist in a particular context. */
     static final Object NO_FETCHER_FOUND = new Object();
 
